@@ -10,17 +10,13 @@ import { CLIENT_RENEG_LIMIT } from 'tls';
   templateUrl: './poke.component.html',
   styleUrl: './poke.component.css'
 })
-export class PokeComponent implements OnInit{
+export class PokeComponent {
   buscarNombre: string='';
   pokemonElegido:any=null;
 
   constructor(private pokemonService: PokemonService){
-
-
   }
-  ngOnInit(): void {
-    
-  }
+
   buscar(event: any): void {
     this.buscarNombre = event.target.value;
 
