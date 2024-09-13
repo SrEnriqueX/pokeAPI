@@ -12,7 +12,7 @@ import { CLIENT_RENEG_LIMIT } from 'tls';
 })
 export class PokeComponent implements OnInit{
   buscarNombre: string='';
-  pokemonElegido:any;
+  pokemonElegido:any=null;
 
   constructor(private pokemonService: PokemonService){
 
@@ -23,14 +23,22 @@ export class PokeComponent implements OnInit{
   }
   buscar(event: any): void {
     this.buscarNombre = event.target.value;
-    console.log(this.buscarNombre); 
 
+    if (!this.buscarNombre) {
+      this.pokemonElegido = null;
+      return;
+    }
+
+    
     this.pokemonService.getNombreIdPokemon(this.buscarNombre).subscribe(
-      response=>{
-        this.pokemonElegido=response
-        console.log(this.pokemonElegido);
+      response => {
+        if (response) {
+          this.pokemonElegido = response;
+          console.log(this.pokemonElegido);
+        } else {
+          this.pokemonElegido = null;
+        }
       }
     );
-
   }
 }
