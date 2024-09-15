@@ -1,4 +1,7 @@
 <div class="container-fluid">
+    @if(mensajeAlerta){
+        <div class="alert alert-danger text-center" role="alert">{{mensajeAlerta}}</div>
+    }
     <div class="row mb-3">
         <div class="col-12 text-center">
             <h1>Busca a tu Pokémon</h1>
@@ -6,40 +9,15 @@
         <div class="col-12 d-flex justify-content-center  align-items: center mb-3">
             <div class="col-12 col-md-6">
                 <div class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Ingresar nombre/id del Pokémon" aria-label="Search" (input)="buscar($event)">
+                    <input class="form-control me-3" type="search"  aria-label="Search"[(ngModel)]="buscarNombre" placeholder="Nombre del Pokémon">
+                    <button class="btn btn-primary" (click)="buscar()">Ver Detalles</button>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        @if (pokemonElegido) {
-            <div class="col-12 d-flex justify-content-center  align-items: center">
-                <div class="col-12 col-md-4">
-                    <div class="card">
-                        <div class="card-header  d-flex justify-content-center  align-items: center">
-                            <img class="img-fluid" src="{{pokemonElegido.sprites.other.dream_world.front_default}}" >
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">ID: {{pokemonElegido.id}}</li>
-                                <li class="list-group-item">Nombre: {{pokemonElegido.name}}</li>
-                                <li class="list-group-item">Peso: {{pokemonElegido.weight}}</li>
-                                <li class="list-group-item">Altura: {{pokemonElegido.height}}</li>
-                                <li class="list-group-item">Base experiencia: {{pokemonElegido.base_experience}}</li>
-                                <li class="list-group-item">
-                                    <h5>Tipos</h5>
-                                    @for (i of pokemonElegido.types; track  $index) {
-                                        <p>{{i.type.name}}</p>
-                                    }
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card-footer">
-                            <!-- Footer content if any -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
+
     </div>
 </div>
+
+
+<!--<input class="form-control me-2" type="search" placeholder="Ingresar nombre/id del Pokémon" aria-label="Search" (input)="buscar($event)">
+-->

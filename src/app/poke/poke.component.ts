@@ -1,40 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '../services/pokemon.service';
-import { response } from 'express';
-import { CLIENT_RENEG_LIMIT } from 'tls';
-
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-poke',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './poke.component.html',
   styleUrl: './poke.component.css'
 })
 export class PokeComponent {
   buscarNombre: string='';
-  pokemonElegido:any=null;
+  mensajeAlerta: string='';
 
-  constructor(private pokemonService: PokemonService){
-  }
-
-  buscar(event: any): void {
-    this.buscarNombre = event.target.value;
-
-    if (!this.buscarNombre) {
-      this.pokemonElegido = null;
-      return;
+  constructor(private router: Router){}
+  buscar(): void {
+    if (this.buscarNombre) {
+      this.router.navigate(['/detalle-pokemon/', this.buscarNombre]);
+      this.mensajeAlerta = ''; 
+    }else{
+      this.mensajeAlerta='Por favor ingresar un nombre o ID del pokemon'
     }
-
-    
-    this.pokemonService.getNombreIdPokemon(this.buscarNombre).subscribe(
-      response => {
-        if (response) {
-          this.pokemonElegido = response;
-          console.log(this.pokemonElegido);
-        } else {
-          this.pokemonElegido = null;
-        }
-      }
-    );
   }
+
 }
